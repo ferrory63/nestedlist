@@ -7,15 +7,19 @@ import { NodeItem } from '../../types/types'
 
 type Props = {
     parentId: string
-    formerName?: string
+    setParentId: (parent: string) => void
 }
 
 type IFormData = {
     name: string
 }
 
-export const CustomForm = ({ parentId = '0', formerName }: Props) => {
-    const [node, setNode] = useState(formerName ? formerName : '')
+export const CustomForm = ({
+    parentId = '0',
+
+    setParentId,
+}: Props) => {
+    const [node, setNode] = useState('')
     const dispatch = useAppDispatch()
 
     const { handleSubmit } = useForm<IFormData>()
@@ -28,23 +32,23 @@ export const CustomForm = ({ parentId = '0', formerName }: Props) => {
                 parentId: parentId,
             } as NodeItem)
         )
+        setParentId('0')
+        setNode('')
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="wrapper">
-                <input
-                    type="text"
-                    id="task"
-                    className="input"
-                    required
-                    value={node}
-                    onChange={(e) => setNode(e.target.value)}
-                    autoFocus
-                    maxLength={20}
-                    placeholder="Enter node name"
-                />
-            </div>
+        <form className="form__wrapper" onSubmit={handleSubmit(onSubmit)}>
+            <input
+                type="text"
+                id="task"
+                className="input"
+                required
+                value={node}
+                onChange={(e) => setNode(e.target.value)}
+                autoFocus
+                maxLength={20}
+                placeholder="Enter node name"
+            />
             <input type="submit" value="Add" />
         </form>
     )

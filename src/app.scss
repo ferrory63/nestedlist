@@ -1,0 +1,57 @@
+.App {
+  display: flex; 
+  justify-content: center;
+  height: 100%;
+}
+
+button, input[type='submit'] {
+    border: 1px solid greenyellow;
+    padding: 1px 7px 2px;
+    text-rendering: auto;
+    background: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+    font: 400 11px system-ui;
+}
+
+input[type='text'] {
+    border: 1px solid greenyellow;
+    text-rendering: auto;
+    background: none;
+    display: inline-block;
+    text-align: start;
+    margin: 0em;
+    font: 400 11px system-ui;
+    &:focus {
+        border: 1px solid greenyellow;
+        
+    }
+}
+
+.form__wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.component {
+    border: 1px solid greenyellow;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 40px;
+        padding-right: 40px;  
+        display: flex;
+        gap: 20px;
+        flex-direction: row;
+        border-bottom: 1px solid greenyellow;
+    }
+
+    &__body {
+        min-height: 300px;
+    }
+}

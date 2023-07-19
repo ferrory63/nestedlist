@@ -6,16 +6,11 @@ type INodeItemsSliceState = {
 }
 
 const initialState: INodeItemsSliceState = {
-    nodesList: [
-        { id: '1', name: 'first', parentId: '0' },
-        { id: '2', name: 'second', parentId: '1' },
-        { id: '3', name: 'third', parentId: '1' },
-        { id: '4', name: 'forth', parentId: '2' },
-    ],
+    nodesList: [],
 }
 
 const nodesSlice = createSlice({
-    name: 'users',
+    name: 'nodes',
     initialState,
     reducers: {
         addNode(state, action: PayloadAction<NodeItem>) {

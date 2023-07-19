@@ -37,23 +37,21 @@ export const EditForm: React.FC<EditFormProps> = ({
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="wrapper">
-                    <input
-                        type="text"
-                        id="task"
-                        className="input"
-                        required
-                        value={updatedTaskName}
-                        onChange={(e) => setUpdatedTaskName(e.target.value)}
-                        autoFocus
-                        maxLength={20}
-                        placeholder="update node"
-                    />
-                </div>
-                <input type="submit" value="Edit" />
-            </form>
-        </div>
+        <form className="form__wrapper" onSubmit={handleSubmit(onSubmit)}>
+            <div>
+                <input
+                    type="text"
+                    id="task"
+                    className="input"
+                    required
+                    value={updatedTaskName}
+                    onChange={(e) => setUpdatedTaskName(e.target.value)}
+                    autoFocus
+                    maxLength={20}
+                    placeholder="update node"
+                />
+            </div>
+            <input type="submit" value="Edit" />
+        </form>
     )
 }

@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import './App.css'
+import './app.scss'
 import { useAppDispatch, useAppSelector } from './store/store'
 import { NodeDisplay } from './components/node'
 import { findSiblings } from './helpers'
 import { NodeItem } from './types/types'
 import { CustomForm } from './components/addFrom'
 import { EditForm } from './components/editForm'
+import { resetNodes } from './store/slices/nodes'
 
 function App() {
     const dispatch = useAppDispatch()
@@ -14,12 +15,9 @@ function App() {
 
     const siblings = findSiblings('0', nodesList)
 
-    console.log(siblings)
-
     const [editNode, setEditNode] = useState<NodeItem | null>(null)
 
     const [isEditing, setIsEditing] = useState(false)
-    const [isAdding, setIsAddng] = useState(false)
     const [parentId, setParentId] = useState('0')
 
     const enterAddSubNode = (parent: string) => {
@@ -38,17 +36,38 @@ function App() {
 
     return (
         <div className="App">
-            <p>alive</p>
-            {!isEditing && <CustomForm parentId={parentId} />}
-            {isEditing && (
-                <EditForm
-                    selectedNode={editNode}
-                    onEditSucces={() => closeEditMode()}
-                />
-            )}
-            {siblings.map((sib) => (
-                <NodeDisplay data={sib} deps={0} />
-            ))}
+            <div className="component">
+                <div className="component__header">
+                    <div>
+                        {!isEditing && (
+                            <CustomForm
+                                parentId={parentId}
+                                setParentId={setParentId}
+                            />
+                        )}
+                        {isEditing && (
+                            <EditForm
+                                selectedNode={editNode}
+                                onEditSucces={() => closeEditMode()}
+                            />
+                        )}
+                    </div>
+                    <button onClick={() => dispatch(resetNodes())}>
+                        Reset
+                    </button>
+                </div>
+
+                <div className="component__body">
+                    {siblings.map((sib) => (
+                        <NodeDisplay
+                            data={sib}
+                            indent={0}
+                            setParent={() => enterAddSubNode(sib.id)}
+                            enterEditMode={() => enterEditMode(sib)}
+                        />
+                    ))}
+                </div>
+            </div>
         </div>
     )
 }
