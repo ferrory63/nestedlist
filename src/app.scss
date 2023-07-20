@@ -1,7 +1,7 @@
 .App {
   display: flex; 
   justify-content: center;
-  height: 100%;
+  
 }
 
 button, input[type='submit'] {
@@ -13,6 +13,11 @@ button, input[type='submit'] {
     text-align: start;
     margin: 0em;
     font: 400 11px system-ui;
+    transition: background-color .6s;
+
+    &:active {
+        background-color: green;
+    }
 }
 
 input[type='text'] {
@@ -24,8 +29,10 @@ input[type='text'] {
     margin: 0em;
     font: 400 11px system-ui;
     &:focus {
-        border: 1px solid greenyellow;
-        
+        border: 1px solid rgb(173, 200, 48) ;
+        background-color: white;
+        border-radius: 0px;
+        outline: 0;
     }
 }
 
@@ -36,15 +43,14 @@ input[type='text'] {
 }
 
 .component {
+    width: 40%;
     border: 1px solid greenyellow;
 
     &__header {
         display: flex;
-        justify-content: space-between;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-left: 40px;
-        padding-right: 40px;  
+        justify-content: center;
+        padding: 20px 40px;
+        
         display: flex;
         gap: 20px;
         flex-direction: row;

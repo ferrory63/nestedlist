@@ -21,6 +21,7 @@ function App() {
     const [parentId, setParentId] = useState('0')
 
     const enterAddSubNode = (parent: string) => {
+        closeEditMode()
         setParentId(parent)
     }
 
@@ -60,10 +61,12 @@ function App() {
                 <div className="component__body">
                     {siblings.map((sib) => (
                         <NodeDisplay
+                            key={sib.id}
                             data={sib}
                             indent={0}
-                            setParent={() => enterAddSubNode(sib.id)}
+                            enterAddSubMode={() => enterAddSubNode(sib.id)}
                             enterEditMode={() => enterEditMode(sib)}
+                            closeEditMode={closeEditMode}
                         />
                     ))}
                 </div>

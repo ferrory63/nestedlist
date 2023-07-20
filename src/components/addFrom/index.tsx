@@ -45,7 +45,6 @@ export const CustomForm = ({
                 required
                 value={node}
                 onChange={(e) => setNode(e.target.value)}
-                autoFocus
                 maxLength={20}
                 placeholder="Enter node name"
             />

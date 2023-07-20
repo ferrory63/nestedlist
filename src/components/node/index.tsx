@@ -10,38 +10,50 @@ type Props = {
     data: NodeItem
     indent: number
     enterEditMode: (node: NodeItem) => void
-    setParent: (id: string) => void
+    enterAddSubMode: (id: string) => void
+    closeEditMode: () => void
 }
 
 export const NodeDisplay = ({
     data,
     indent,
     enterEditMode,
-    setParent,
+    enterAddSubMode,
+    closeEditMode,
 }: Props) => {
     const dispatch = useAppDispatch()
 
-    const { id, name } = data
+    const { id, name, parentId } = data
 
     const { nodesList } = useAppSelector((state) => state.nodes)
 
     const siblings = findSiblings(id, nodesList)
 
     return (
-        <div style={{ paddingLeft: `${indent * 5}px` }}>
+        <div>
             <div className="node">
                 <div className="node__content">{name}</div>
-                <button onClick={() => dispatch(deleteNode(id))}>Delete</button>
+                <div>{parentId}</div>
+                <button
+                    onClick={() => {
+                        dispatch(deleteNode(id))
+                        closeEditMode()
+                    }}
+                >
+                    Delete
+                </button>
                 <button onClick={() => enterEditMode(data)}>Edit</button>
-                <button onClick={() => setParent(id)}>Add subNode</button>
+                <button onClick={() => enterAddSubMode(id)}>Add subNode</button>
             </div>
             {siblings && siblings.length
                 ? siblings.map((i) => (
                       <NodeDisplay
+                          key={i.id}
                           data={i}
                           indent={indent + 1}
                           enterEditMode={() => enterEditMode(i)}
-                          setParent={() => setParent(i.id)}
+                          enterAddSubMode={() => enterAddSubMode(i.id)}
+                          closeEditMode={closeEditMode}
                       />
                   ))
                 : null}
