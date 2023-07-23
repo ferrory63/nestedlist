@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { RefObject, useState } from 'react'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAppDispatch } from '../../store/store'
@@ -8,23 +8,24 @@ import { NodeItem } from '../../types/types'
 type Props = {
     parentId: string
     setParentId: (parent: string) => void
+    inputRef: RefObject<HTMLInputElement>
 }
 
-type IFormData = {
+type formData = {
     name: string
 }
 
 export const CustomForm = ({
     parentId = '0',
-
+    inputRef,
     setParentId,
 }: Props) => {
     const [node, setNode] = useState('')
     const dispatch = useAppDispatch()
 
-    const { handleSubmit } = useForm<IFormData>()
+    const { handleSubmit } = useForm<formData>()
 
-    const onSubmit: SubmitHandler<IFormData> = () => {
+    const onSubmit: SubmitHandler<formData> = () => {
         dispatch(
             addNode({
                 name: node,
@@ -47,6 +48,7 @@ export const CustomForm = ({
                 onChange={(e) => setNode(e.target.value)}
                 maxLength={20}
                 placeholder="Enter node name"
+                ref={inputRef}
             />
             <input type="submit" value="Add" />
         </form>

@@ -23,17 +23,16 @@ export const NodeDisplay = ({
 }: Props) => {
     const dispatch = useAppDispatch()
 
-    const { id, name, parentId } = data
+    const { id, name } = data
 
     const { nodesList } = useAppSelector((state) => state.nodes)
 
     const siblings = findSiblings(id, nodesList)
 
     return (
-        <div>
+        <div style={{ marginLeft: `${(indent * 15).toString()}px` }}>
             <div className="node">
                 <div className="node__content">{name}</div>
-                <div>{parentId}</div>
                 <button
                     onClick={() => {
                         dispatch(deleteNode(id))
@@ -52,7 +51,7 @@ export const NodeDisplay = ({
                           data={i}
                           indent={indent + 1}
                           enterEditMode={() => enterEditMode(i)}
-                          enterAddSubMode={() => enterAddSubMode(i.id)}
+                          enterAddSubMode={enterAddSubMode}
                           closeEditMode={closeEditMode}
                       />
                   ))

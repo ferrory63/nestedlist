@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import './app.scss'
 import { useAppDispatch, useAppSelector } from './store/store'
 import { NodeDisplay } from './components/node'
@@ -20,14 +20,18 @@ function App() {
     const [isEditing, setIsEditing] = useState(false)
     const [parentId, setParentId] = useState('0')
 
-    const enterAddSubNode = (parent: string) => {
+    const inputRef = useRef<HTMLInputElement>(null)
+
+    function enterAddSibMode(parent: string) {
         closeEditMode()
         setParentId(parent)
+        inputRef.current?.focus()
     }
 
     const enterEditMode = (node: NodeItem) => {
         setIsEditing(true)
         setEditNode(node)
+        inputRef.current?.focus()
     }
 
     const closeEditMode = () => {
@@ -44,11 +48,13 @@ function App() {
                             <CustomForm
                                 parentId={parentId}
                                 setParentId={setParentId}
+                                inputRef={inputRef}
                             />
                         )}
                         {isEditing && (
                             <EditForm
                                 selectedNode={editNode}
+                                inputRef={inputRef}
                                 onEditSucces={() => closeEditMode()}
                             />
                         )}
@@ -64,7 +70,7 @@ function App() {
                             key={sib.id}
                             data={sib}
                             indent={0}
-                            enterAddSubMode={() => enterAddSubNode(sib.id)}
+                            enterAddSubMode={enterAddSibMode}
                             enterEditMode={() => enterEditMode(sib)}
                             closeEditMode={closeEditMode}
                         />

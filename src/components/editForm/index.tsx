@@ -1,29 +1,27 @@
-import React, { useState } from 'react'
+import React, { RefObject, useState } from 'react'
 
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAppDispatch } from '../../store/store'
 import { editNode } from '../../store/slices/nodes'
 import { NodeItem } from '../../types/types'
 
-interface EditFormProps {
+interface Props {
     selectedNode: NodeItem | null
     onEditSucces: () => void
+    inputRef: RefObject<HTMLInputElement>
 }
 
-interface IFormData {
+interface formData {
     name: string
 }
 
-export const EditForm: React.FC<EditFormProps> = ({
-    selectedNode,
-    onEditSucces,
-}) => {
+export const EditForm = ({ selectedNode, onEditSucces, inputRef }: Props) => {
     const [updatedTaskName, setUpdatedTaskName] = useState(selectedNode?.name)
     const dispatch = useAppDispatch()
 
-    const { handleSubmit } = useForm<IFormData>()
+    const { handleSubmit } = useForm<formData>()
 
-    const onSubmit: SubmitHandler<IFormData> = () => {
+    const onSubmit: SubmitHandler<formData> = () => {
         if (selectedNode) {
             dispatch(
                 editNode({
@@ -49,6 +47,7 @@ export const EditForm: React.FC<EditFormProps> = ({
                     autoFocus
                     maxLength={20}
                     placeholder="update node"
+                    ref={inputRef}
                 />
             </div>
             <input type="submit" value="Edit" />
