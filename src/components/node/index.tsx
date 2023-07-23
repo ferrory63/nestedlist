@@ -35,7 +35,7 @@ export const NodeDisplay = ({
                 <div className="node__content">{name}</div>
                 <button
                     onClick={() => {
-                        dispatch(deleteNode(id))
+                        dispatch(deleteNode(data))
                         closeEditMode()
                     }}
                 >

@@ -28,13 +28,13 @@ function App() {
         inputRef.current?.focus()
     }
 
-    const enterEditMode = (node: NodeItem) => {
+    function enterEditMode(node: NodeItem) {
         setIsEditing(true)
         setEditNode(node)
         inputRef.current?.focus()
     }
 
-    const closeEditMode = () => {
+    function closeEditMode() {
         setIsEditing(false)
         setEditNode(null)
     }
@@ -55,7 +55,7 @@ function App() {
                             <EditForm
                                 selectedNode={editNode}
                                 inputRef={inputRef}
-                                onEditSucces={() => closeEditMode()}
+                                onEditSucces={closeEditMode}
                             />
                         )}
                     </div>
@@ -71,7 +71,7 @@ function App() {
                             data={sib}
                             indent={0}
                             enterAddSubMode={enterAddSibMode}
-                            enterEditMode={() => enterEditMode(sib)}
+                            enterEditMode={enterEditMode}
                             closeEditMode={closeEditMode}
                         />
                     ))}
