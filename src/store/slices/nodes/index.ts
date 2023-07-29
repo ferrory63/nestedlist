@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { NodeItem } from '../../../types/types'
-import { findDescendants } from '../../../helpers'
+import { filterArrayById, findDescendants } from '../../../helpers'
 
 type INodeItemsSliceState = {
     nodesList: NodeItem[]
@@ -27,11 +27,6 @@ const nodesSlice = createSlice({
         },
         deleteNode(state, action: PayloadAction<NodeItem>) {
             const desc = findDescendants(state.nodesList, action.payload.id)
-
-            function filterArrayById(state: NodeItem[], desc: NodeItem[]) {
-                const idsToRemove = new Set(desc.map((item) => item.id))
-                return state.filter((item) => !idsToRemove.has(item.id))
-            }
 
             state.nodesList = filterArrayById(state.nodesList, desc)
             state.nodesList = state.nodesList.filter((item) =>

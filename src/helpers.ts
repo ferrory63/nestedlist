@@ -17,3 +17,8 @@ export function findDescendants(array: NodeItem[], nodeId: string) {
 
     return descendants
 }
+
+export function filterArrayById(state: NodeItem[], desc: NodeItem[]) {
+    const idsToRemove = new Set(desc.map((item) => item.id))
+    return state.filter((item) => !idsToRemove.has(item.id))
+}

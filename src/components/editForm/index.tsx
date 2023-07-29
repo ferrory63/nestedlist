@@ -27,8 +27,8 @@ export const EditForm = ({ selectedNode, onEditSucces, inputRef }: Props) => {
                 editNode({
                     id: selectedNode.id,
                     parentId: selectedNode.parentId,
-                    name: updatedTaskName,
-                } as NodeItem)
+                    name: updatedTaskName || '',
+                })
             )
             onEditSucces()
         }
